@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="<?php echo base_url().'vendor/twbs/bootstrap/dist/css/bootstrap.css'; ?>">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link rel="stylesheet" href="<?php echo base_url().'vendor/twbs/bootstrap-icons/font/bootstrap-icons.css'?>">
-
+    <link rel="stylesheet" href="<?php echo base_url().'leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.css';  ?>">
+    <script src="<?php echo base_url().'leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js'; ?>"></script>
     <style>
         .row {
             height: 100vh;
@@ -33,12 +34,10 @@
             color: #fff;
         }
         .custom-layout {
-            position: absolute;
+            position: fixed;
             bottom: 10px;
-            left: 20px;
+            left: 25px;
             z-index: 1000; /* Supaya berada di atas peta */
-            background-color: rgba(255, 255, 255, 0.9); /* Background semi-transparan */
-            padding: 10px;
             border-radius: 5px;
         }
     </style>
@@ -53,19 +52,24 @@
         <div class="row">
             <!-- main layout -->
             <div class="col-12 border bg-light">
-                <div class="container-fluid" id="map" style="height:100%; width:100%;">
+                <div class="container-fluid ps-2 pe-2" id="map" style="height:100%; width:100%;">
                     <!-- map inisialisasi di sini -->
                 </div>
             </div>
         </div>
     </div>
-    <div id="custom-layout" class="custom-layout text-bg-dark shadow">
-        <div class="container ps-2 pe-2">
-            <form action="<?php echo base_url('ViewController/MarkersByName') ?>" method="post" class="d-flex ms-auto">
-                <input type="text" class="form-control" name="nama_bangunan" placeholder="Cari Lokasi">
-                <button type="submit" class="btn btn-md btn-primary ms-2"><i class="bi bi-search"></i></button>
+    <div class="custom-layout pe-2" id="custom-layout">
+        <div class="d-flex flex-row">
+            <form action="<?php echo base_url('ViewController/MarkersByName') ?>" method="post" class="d-flex">
+                <input type="text" class="form-control shadow" name="nama_bangunan" placeholder="Cari Lokasi">
+                <button type="submit" class="btn btn-md btn-primary ms-2 shadow"><i class="bi bi-search"></i></button>
             </form>
-            <button type="button" class="btn btn-primary border"><i class="bi bi-"></i></button>
+            <form action="" method="post">
+                <button type="button" class="btn btn-primary ms-2 shadow"><i class="bi bi-sign-turn-slight-left-fill"></i></button>
+            </form>
+        </div>
+        <div class="container-fluid bg-light">
+
         </div>
     </div>
 
