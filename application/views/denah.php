@@ -59,21 +59,21 @@
         </div>
     </div>
     <div class="custom-layout pe-2" id="custom-layout">
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row mb-2">
             <form action="<?php echo base_url('ViewController/MarkersByName') ?>" method="post" class="d-flex">
                 <input type="text" class="form-control shadow" name="nama_bangunan" placeholder="Cari Lokasi">
                 <button type="submit" class="btn btn-md btn-primary ms-2 shadow"><i class="bi bi-search"></i></button>
             </form>
-            <form action="" method="post">
-                <button type="button" class="btn btn-primary ms-2 shadow"><i class="bi bi-sign-turn-slight-left-fill"></i></button>
-            </form>
+            <button type="button" class="btn btn-primary ms-2 shadow" data-bs-toggle="collapse" data-bs-target="#ruteTo"><i class="bi bi-sign-turn-slight-left-fill"></i></button>
+        </div>  
+        <div class="collapse container bg-light shadow" id="ruteTo">
+            <h4>Testimoni lok!</h4>
         </div>
-        <div class="container-fluid bg-light">
-
+        <div class="collapse container bg-light shadow p-2 border rounded" id="ruteTo2">
+            <!-- informasi lokasi -->
         </div>
     </div>
 
-    <!-- Memanggil peta -->
     <script>
         // var map = L.map('map').setView([-0.152567, 109.405606], 15);
         // L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -100,8 +100,8 @@
         });
 
         var basemaps = {
-            "OpenStreetMap": mapstyle1,
-            "SateliteMap": mapstyle2
+            "Open Street": mapstyle1,
+            "Satelite": mapstyle2
         };
 
         var layerControl = L.control.layers(basemaps).addTo(map);
@@ -110,17 +110,30 @@
             var icons = L.divIcon({
                 className: '',
                 html: '<div class="custom-pin" style="background-color: <?php echo $m->warna_marker; ?>"><i class="bi bi-<?php echo $m->icons; ?>"></i></div>',
-                iconSize: [30,40],
-                iconAnchor: [15,40],
-            })
-            L.marker([<?php echo $m->latitude ?>, <?php echo $m->longitude ?>], {icon: icons}).addTo(map).bindPopup('Lokasi: <?php echo $m->nama_bangunan; ?>');
-        <?php endforeach; ?>
+                iconSize: [30, 40],
+                iconAnchor: [15, 40],
+            });
+
+            var marker = L.marker([<?php echo $m->latitude ?>, <?php echo $m->longitude ?>], {icon: icons}).addTo(map);
+
+            marker.on('click', function () {
+                var collapse1 = document.getElementById('ruteTo');
+                var collapse2 = document.getElementById('ruteTo2');
+                collapse2.innerHTML = '<h4 class="text-bg-primary p-2 text-center">Informasi Lokasi</h4><p class="mt-4"><b>Lokasi : </b><?php echo $m->nama_bangunan ?></p>';
+                
+                if (collapse1.classList.contains('show') || collapse2.classList.contains('show')) {
+                    collapse1.classList.remove('show');
+                    collapse2.classList.remove('show');
+                } else {
+                    collapse2.classList.add('show');
+                }
+            });
+        <?php endforeach; ?>    
     </script>
 
     <!-- PopUp Assist -->
     <script src="<?php echo base_url().'assets/script/Popup_latlang.js'; ?>"></script>
-    
-    <script src="<?php echo base_url().'vendor/twbs/bootstrap/dist/js/bootstrap.js'; ?>"></script>
-    <script src="<?php echo base_url().'vendor/leaflet_markers/js/leaflet.awesome-markers.js'; ?>"></script>
+
+    <script src="<?php echo base_url().'vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js'; ?>"></script>
 </body>
 </html>
