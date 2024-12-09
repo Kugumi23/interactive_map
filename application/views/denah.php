@@ -81,11 +81,11 @@
         //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         // }).addTo(map);
         
-        var mapstyle1 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        var mapstyle2 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
 
-        var mapstyle2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        var mapstyle1 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
             attribution: '© Esri © OpenStreetMap Contributors',
             id: 'MapID',
             maxZoom: 20, 
@@ -128,7 +128,13 @@
                     collapse2.classList.add('show');
                 }
             });
-        <?php endforeach; ?>    
+        <?php endforeach; ?>
+        document.querySelector('[data-bs-target="#ruteTo"]').addEventListener('click', function () {
+            var collapse2 = document.getElementById('ruteTo2');
+            if (collapse2.classList.contains('show')) {
+                collapse2.classList.remove('show');
+            }
+        });
     </script>
 
     <!-- PopUp Assist -->
