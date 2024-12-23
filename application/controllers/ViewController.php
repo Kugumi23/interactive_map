@@ -8,8 +8,16 @@ class ViewController extends CI_Controller {
     }
 
     public function MarkersByName(){
-        $name = $this->input->post('nama_bangunan');
+        $name = $this->input->post('search');
         $data['marker'] = $this->Marker->getMarkerByName($name)->result();
         return $this->load->view('denah',$data);
+    }
+
+    public function terminal() {
+        $this->load->view('denah2');
+    }
+
+    public function admins() {
+        $this->load->view('denah3');
     }
 }
