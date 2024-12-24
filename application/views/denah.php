@@ -10,7 +10,19 @@
     <link rel="stylesheet" href="<?php echo base_url().'vendor/twbs/bootstrap-icons/font/bootstrap-icons.css'?>">
     <link rel="stylesheet" href="<?php echo base_url().'leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.css';  ?>">
     <script src="<?php echo base_url().'leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js'; ?>"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
     <style>
+        .title {
+            top: 8px;
+            left: 100px;
+            z-index: 1001;
+            position: fixed;
+            font-family: "Orbitron", serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
         .row {
             height: 100vh;
         }
@@ -19,7 +31,7 @@
         }
         #trigger-offcanvas {
             position: fixed;
-            top: 50%;
+            top: 100px;
             left: 24px;
             transform: translateY(-50%);
             z-index: 1001;
@@ -59,7 +71,6 @@
             box-shadow: none;
             background-color: transparent;
         }
-        
     </style>
 </head>
 <body>
@@ -81,9 +92,10 @@
             <div class="container ps-2 pe-2 mt-4">
                 <label for="opsi" class="label-form text-secondary">Pilihan Denah</label>
                 <select class="form-select text-secondary" name="opsi" id="opsi">
-                    <option selected value="<?php echo base_url().'ViewController/index' ?>">Denah Bandara</option>
-                    <option value="<?php echo base_url().'ViewController/terminal' ?>">Denah Terminal Bandara</option>
-                    <option value="<?php echo base_url().'ViewController/admins' ?>">Denah Kantor Administrasi</option>
+                    <option selected value="<?php echo base_url().'ViewController/index' ?>">Denah Komplek Bandara</option>
+                    <option value="<?php echo base_url().'ViewController/terminalL1' ?>">Denah Terminal Bandara - Lt.1</option>
+                    <option value="<?php echo base_url().'ViewController/terminalL2' ?>">Denah Terminal Bandara - Lt.2</option>
+                    <option value="<?php echo base_url().'ViewController/terminalL3' ?>">Denah Terminal Bandara - Lt.3</option>
                 </select>
             </div>
         </div>
@@ -102,6 +114,10 @@
     <div class="collapse container bg-light shadow p-2 border rounded" id="ruteTo">
             <!-- informasi lokasi -->
     </div>
+    <div class="title container">
+        <h4 class="text-light" style="font-weight: 600;">Bandara Udara Supadio - PNK</h4>
+        <h6 class="text-light" style="font-weight: 400;">Komplek Bandara Supadio</h5>
+    </div>
     <script>
         var mapstyle2 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -116,8 +132,8 @@
         });
 
         var map = L.map('map', {
-            center: [-0.152567, 109.405606],
-            zoom: 15,
+            center: [-0.146751, 109.40486],
+            zoom: 17,
             layers: [mapstyle1]
         });
 

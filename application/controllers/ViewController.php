@@ -13,11 +13,15 @@ class ViewController extends CI_Controller {
         return $this->load->view('denah',$data);
     }
 
-    public function terminal() {
+    public function terminalL1() {
         $this->load->view('denah2');
     }
 
-    public function admins() {
+    public function terminalL2() {
         $this->load->view('denah3');
     }
+    
+    public function terminalL3() {
+        $this->load->view('denah4');
+    }   
 }

@@ -74,8 +74,8 @@
                 <label for="opsi" class="label-form text-secondary">Pilihan Denah</label>
                 <select class="form-select text-secondary" name="opsi" id="opsi">
                     <option value="<?php echo base_url().'ViewController/index' ?>">Denah Komplek Bandara</option>
-                    <option selected value="<?php echo base_url().'ViewController/terminalL1' ?>">Denah Terminal Bandara - Lt.1</option>
-                    <option value="<?php echo base_url().'ViewController/terminalL2' ?>">Denah Terminal Bandara - Lt.2</option>
+                    <option value="<?php echo base_url().'ViewController/terminalL1' ?>">Denah Terminal Bandara - Lt.1</option>
+                    <option selected value="<?php echo base_url().'ViewController/terminalL2' ?>">Denah Terminal Bandara - Lt.2</option>
                     <option value="<?php echo base_url().'ViewController/terminalL3' ?>">Denah Terminal Bandara - Lt.3</option>
                 </select>
             </div>
@@ -85,7 +85,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 border bg-light">
-                <div class="container-fluid ps-2 pe-2" id="map" style="height:100%; width:100%;">
+                <div class="container-fluid" id="map" style="height:100%; width:100%;">
                     <!-- Wadah map -->
                 </div>
             </div>
