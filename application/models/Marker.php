@@ -12,9 +12,18 @@ class Marker extends CI_Model {
         return $this->db->get('bangunan');
     }
 
-    public function route($loc1, $loc2) {
-        $this->db->like('nama_bangunan', $loc1);
-        $this->db->like('nama_bangunan', $loc2);
+    public function getMarkersByColorsFiltered($name) {
+        $this->db->select('warna_marker, COUNT(*) as jumlah_tanda');
+        $this->db->like('nama_bangunan',$name);
+        $this->db->group_by('warna_marker');
+        $this->db->order_by('jumlah_tanda','DESC');
+        return $this->db->get('bangunan');
+    }
+
+    public function getMarkersByColors(){
+        $this->db->select('warna_marker, COUNT(*) as jumlah_tanda');
+        $this->db->group_by('warna_marker');
+        $this->db->order_by('jumlah_tanda','DESC');
         return $this->db->get('bangunan');
     }
 }

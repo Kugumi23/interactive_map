@@ -23,7 +23,7 @@
             font-optical-sizing: auto;
             font-style: normal;
         }
-        .row {
+        #maprow {
             height: 100vh;
         }
         body {
@@ -45,7 +45,7 @@
         }
         .custom-pin {
             position: relative;
-            width: 30px;
+            width: 40px;
             height: 40px;
             border-radius: 50% 50% 50% 0;
             transform: rotate(-45deg);
@@ -66,21 +66,16 @@
             z-index: 1000; /* Supaya berada di atas peta */
             border-radius: 5px;
         }
-        .border-none {
-            border: none;
-            box-shadow: none;
-            background-color: transparent;
-        }
     </style>
 </head>
 <body>
     <div class="offcanvas offcanvas-start" id="sidebar">
-        <div class="offcanvas-header">
-            <h4 class="ms-2"><i class="bi bi-map-fill"></i></h4>
-            <button class="btn btn-close" type="button" data-bs-dismiss="offcanvas"></button>
+        <div class="offcanvas-header d-flex">
+            <h6 class="ms-2"><img src="<?php echo base_url().'assets/picture/injourney-logo.png' ?>" alt="injourney-logo" style="width: 45%; height: 45%;"></h6>
+            <button class="btn ms-auto" type="button" data-bs-dismiss="offcanvas"><i class="bi bi-x-lg"></i></button>
         </div>
         <div class="offcanvas-body">
-            <div class="container ps-2">
+            <div class="container p-2">
                 <form action="<?php echo base_url().'ViewController/MarkersByName'; ?>" method="post">
                     <label for="search" class="label-form text-secondary">Cari lokasi</label>
                     <div class="d-flex">
@@ -89,7 +84,7 @@
                     </div>
                 </form>
             </div>
-            <div class="container ps-2 pe-2 mt-4">
+            <div class="container ps-2 pe-2 mt-5">
                 <label for="opsi" class="label-form text-secondary">Pilihan Denah</label>
                 <select class="form-select text-secondary" name="opsi" id="opsi">
                     <option selected value="<?php echo base_url().'ViewController/index' ?>">Denah Komplek Bandara</option>
@@ -98,11 +93,20 @@
                     <option value="<?php echo base_url().'ViewController/terminalL3' ?>">Denah Terminal Bandara - Lt.3</option>
                 </select>
             </div>
+            <label for="legenda" class="text-secondary ps-2 mt-5">Legenda</label>
+            <div class="row ps-2 pe-2 mt-4" name="legenda" id="legenda">
+                <?php foreach($colors as $c): ?>
+                    <div class="col-4 d-flex">
+                        <div class="custom-pin" style="background-color: <?php echo $c->warna_marker ?>; width:25px; height:25px;"><i class="bi bi-circle-fill"></i></div>
+                        <h4 class="ms-3 text-secondary"><?php echo $c->jumlah_tanda ?></h4>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
-    <button id="trigger-offcanvas" class="btn btn-light" data-bs-toggle="offcanvas" data-bs-target="#sidebar"><i class="bi bi-list"></i></button>
+    <button id="trigger-offcanvas" class="btn btn-light border border-dark border-1 rounded-1" data-bs-toggle="offcanvas" data-bs-target="#sidebar"><i class="bi bi-three-dots-vertical"></i></button>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="maprow">
             <!-- main layout -->
             <div class="col-12 border bg-light">
                 <div class="container-fluid" id="map" style="height:100%; width:100%;">
@@ -115,8 +119,8 @@
             <!-- informasi lokasi -->
     </div>
     <div class="title container">
-        <h4 class="text-light" style="font-weight: 600;">Bandara Udara Supadio - PNK</h4>
-        <h6 class="text-light" style="font-weight: 400;">Komplek Bandara Supadio</h5>
+        <h4 style="font-weight: 600;" class="text-light">Bandara Udara Supadio - PNK</h4>
+        <h6 style="font-weight: 400;" class="text-light">Komplek Bandara Supadio</h6>
     </div>
     <script>
         var mapstyle2 = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -138,8 +142,8 @@
         });
 
         var basemaps = {
-            "Citra Satelite": mapstyle1,
-            "Peta Jalan": mapstyle2
+            "Peta Satelit": mapstyle1,
+            "Peta Jalanan": mapstyle2
         };
 
         var layerControl = L.control.layers(basemaps).addTo(map);
@@ -148,7 +152,7 @@
             var icons = L.divIcon({
                 className: '',
                 html: '<div class="custom-pin" style="background-color: <?php echo $m->warna_marker; ?>"><i class="bi bi-<?php echo $m->icons; ?>"></i></div>',
-                iconSize: [30, 40],
+                iconSize: [40, 40],
                 iconAnchor: [15, 40],
             });
 
@@ -165,19 +169,18 @@
                 }
             });
         <?php endforeach; ?>
-        document.querySelector('[data-bs-target="#ruteTo"]').addEventListener('click', function () {
+        document.querySelector('[data-bs-target="#ruteTo"]').addEventListener('click', function() {
             var collapse2 = document.getElementById('ruteTo2');
             if (collapse2.classList.contains('show')) {
                 collapse2.classList.remove('show');
             }
         });
     </script>
-
     <!-- PopUp Assist -->
-    <script src="<?php echo base_url().'assets/script/Popup_latlang.js'; ?>"></script>
-    <!-- Click Select Link -->
+    <script src="<?php echo base_url().'assets/script/Popup_latlang.js' ?>"></script>
+    <!-- Click Select map -->
     <script src="<?php echo base_url().'assets/script/select_map.js' ?>"></script>
 
-    <script src="<?php echo base_url().'vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js'; ?>"></script>
+    <script src="<?php echo base_url().'vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js' ?>"></script>
 </body>
 </html>
