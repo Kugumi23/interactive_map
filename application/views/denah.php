@@ -69,6 +69,9 @@
     </style>
 </head>
 <body>
+    <header>
+
+    </header>
     <div class="offcanvas offcanvas-start" id="sidebar">
         <div class="offcanvas-header d-flex">
             <h6 class="ms-2"><img src="<?php echo base_url().'assets/picture/injourney-logo.png' ?>" alt="injourney-logo" style="width: 45%; height: 45%;"></h6>
@@ -96,11 +99,21 @@
             <label for="legenda" class="text-secondary ps-2 mt-5">Legenda</label>
             <div class="row ps-2 pe-2 mt-4" name="legenda" id="legenda">
                 <?php foreach($colors as $c): ?>
-                    <div class="col-4 d-flex">
+                    <div class="col-4 mt-1 d-flex">
                         <div class="custom-pin" style="background-color: <?php echo $c->warna_marker ?>; width:25px; height:25px;"><i class="bi bi-circle-fill"></i></div>
                         <h4 class="ms-3 text-secondary"><?php echo $c->jumlah_tanda ?></h4>
                     </div>
                 <?php endforeach; ?>
+            </div>
+            <div class="ps-2 mt-4">
+                <label class="text-secondary" for="list">Daftar Lokasi</label>
+            </div>
+            <div class="container ps-2 mt-2" id="list">
+                <ul>
+                    <?php foreach($marker as $m): ?>
+                        <li class="text-secondary"><?php echo $m->nama_bangunan ?></li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         </div>
     </div>
@@ -161,7 +174,6 @@
             marker.on('click', function () {
                 var collapse1 = document.getElementById('ruteTo');
                 collapse1.innerHTML = '<h4 class="p-2 text-center">Informasi Lokasi</h4><hr><p class="mt-4"><b><i class="bi bi-geo-alt-fill me-2 ms-2"></i></b><?php echo $m->nama_bangunan ?></p>';
-                
                 if (collapse1.classList.contains('show')) {
                     collapse1.classList.remove('show');
                 } else {
@@ -169,12 +181,12 @@
                 }
             });
         <?php endforeach; ?>
-        document.querySelector('[data-bs-target="#ruteTo"]').addEventListener('click', function() {
-            var collapse2 = document.getElementById('ruteTo2');
-            if (collapse2.classList.contains('show')) {
-                collapse2.classList.remove('show');
-            }
-        });
+        // document.querySelector('[data-bs-target="#ruteTo"]').addEventListener('click', function() {
+        //     var collapse2 = document.getElementById('ruteTo2');
+        //     if (collapse2.classList.contains('show')) {
+        //         collapse2.classList.remove('show');
+        //     }
+        // });
     </script>
     <!-- PopUp Assist -->
     <script src="<?php echo base_url().'assets/script/Popup_latlang.js' ?>"></script>

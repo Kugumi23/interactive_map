@@ -4,12 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Marker extends CI_Model {
     
     public function getMarkers(){
+        $this->db->order_by('warna_marker');
         $this->db->where('nama_area','komplek bandara');
         return $this->db->get('bangunan');
     }
 
     public function getMarkerByName($name){
         $this->db->like('nama_bangunan',$name);
+        $this->db->order_by('warna_marker');
         $this->db->where('nama_area','komplek bandara');
         return $this->db->get('bangunan');
     }
