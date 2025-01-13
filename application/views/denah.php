@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Denah Bandara</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <link rel="stylesheet" href="<?php echo base_url().'vendor/twbs/bootstrap/dist/css/bootstrap.css'; ?>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link rel="stylesheet" href="<?php echo base_url().'vendor/twbs/bootstrap-icons/font/bootstrap-icons.css'?>">
     <link rel="stylesheet" href="<?php echo base_url().'leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.css';  ?>">
@@ -69,9 +69,6 @@
     </style>
 </head>
 <body>
-    <header>
-
-    </header>
     <div class="offcanvas offcanvas-start" id="sidebar">
         <div class="offcanvas-header d-flex">
             <h6 class="ms-2"><img src="<?php echo base_url().'assets/picture/injourney-logo.png' ?>" alt="injourney-logo" style="width: 45%; height: 45%;"></h6>
@@ -105,15 +102,13 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="ps-2 mt-4">
-                <label class="text-secondary" for="list">Daftar Lokasi</label>
-            </div>
+            <label class="text-secondary mt-5" for="list">Daftar Lokasi</label>
             <div class="container ps-2 mt-2" id="list">
-                <ul>
-                    <?php foreach($marker as $m): ?>
-                        <li class="text-secondary"><?php echo $m->nama_bangunan ?></li>
-                    <?php endforeach; ?>
-                </ul>
+                <?php foreach($marker as $m): ?>
+                    <div class="d-flex p-1">
+                        <div class="custom-pin" style="background-color: <?php echo $m->warna_marker ?>; width:12px; height:12px;"></div><h6 class="ms-2"><?php echo $m->nama_bangunan ?></h6>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -172,12 +167,12 @@
             var marker = L.marker([<?php echo $m->latitude ?>, <?php echo $m->longitude ?>], {icon: icons}).addTo(map);
 
             marker.on('click', function () {
-                var collapse1 = document.getElementById('ruteTo');
-                collapse1.innerHTML = '<h4 class="p-2 text-center">Informasi Lokasi</h4><hr><p class="mt-4"><b><i class="bi bi-geo-alt-fill me-2 ms-2"></i></b><?php echo $m->nama_bangunan ?></p>';
-                if (collapse1.classList.contains('show')) {
-                    collapse1.classList.remove('show');
+                var collapse = document.getElementById('ruteTo');
+                collapse.innerHTML = '<h4 class="p-2 text-center">Informasi Lokasi</h4><hr><p class="mt-4"><b><i class="bi bi-geo-alt-fill me-2 ms-2"></i></b><?php echo $m->nama_bangunan ?></p>';
+                if (collapse.classList.contains('show')) {
+                    collapse.classList.remove('show');
                 } else {
-                    collapse1.classList.add('show');
+                    collapse.classList.add('show');
                 }
             });
         <?php endforeach; ?>
@@ -191,8 +186,8 @@
     <!-- PopUp Assist -->
     <script src="<?php echo base_url().'assets/script/Popup_latlang.js' ?>"></script>
     <!-- Click Select map -->
+     
     <script src="<?php echo base_url().'assets/script/select_map.js' ?>"></script>
-
-    <script src="<?php echo base_url().'vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js' ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
