@@ -34,6 +34,16 @@ class Marker extends CI_Model {
         return $this->db->get('bangunan');
     }
 
+    public function getImage() {
+        $image = $this->db->get('gambar_bangunan')->result();
+
+        foreach($image as $key => $value) {
+            $image[$key]->gambar = base64_encode($value->gambar);
+        }
+
+        return $image;
+    }
+
     //terminal_1st_floor
     public function getMarkers1(){
         $this->db->order_by('warna_marker');
@@ -62,6 +72,37 @@ class Marker extends CI_Model {
         $this->db->group_by('warna_marker');
         $this->db->order_by('jumlah_tanda','DESC');
         $this->db->where('nama_area','terminal lantai 1');
+        return $this->db->get('bangunan');
+    }
+
+    //terminal_1st_floor
+    public function getMarkers2(){
+        $this->db->order_by('warna_marker');
+        $this->db->where('nama_area','terminal lantai 2');
+        return $this->db->get('bangunan');
+    }
+
+    public function getMarkersByName2($name){
+        $this->db->like('nama_bangunan',$name);
+        $this->db->order_by('warna_marker');
+        $this->db->where('nama_area','terminal lantai 2');
+        return $this->db->get('bangunan');
+    }
+
+    public function getMarkersByColorsFiltered2($name) {
+        $this->db->select('warna_marker, COUNT(*) as jumlah_tanda');
+        $this->db->like('nama_bangunan',$name);
+        $this->db->group_by('warna_marker');
+        $this->db->order_by('jumlah_tanda','DESC');
+        $this->db->where('nama_area','terminal lantai 2');
+        return $this->db->get('bangunan');
+    }
+
+    public function getMarkersByColors2(){
+        $this->db->select('warna_marker, COUNT(*) as jumlah_tanda');
+        $this->db->group_by('warna_marker');
+        $this->db->order_by('jumlah_tanda','DESC');
+        $this->db->where('nama_area','terminal lantai 2');
         return $this->db->get('bangunan');
     }
 }

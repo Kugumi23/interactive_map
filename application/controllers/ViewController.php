@@ -5,6 +5,7 @@ class ViewController extends CI_Controller {
     public function index(){
         $data['marker'] = $this->Marker->getMarkers()->result();
         $data['colors'] = $this->Marker->getMarkersByColors()->result();
+        $data['pictures'] = $this->Marker->getImage();
         $this->load->view('denah',$data);
     }
 
@@ -13,6 +14,7 @@ class ViewController extends CI_Controller {
         if ($name) {
             $data['marker'] = $this->Marker->getMarkerByName($name)->result();
             $data['colors'] = $this->Marker->getmarkersByColorsFiltered($name)->result();
+            $data['pictures'] = $this->Marker->getImage();
             $this->load->view('denah',$data);
         } else {
             redirect('ViewController/index');
@@ -22,14 +24,17 @@ class ViewController extends CI_Controller {
     public function terminalL1() {
         $data['marker'] = $this->Marker->getMarkers1()->result();
         $data['colors'] = $this->Marker->getMarkersByColors1()->result();
+        $data['pictures'] = $this->Marker->getImage();
         $this->load->view('denah2',$data);
     }
 
     public function MarkersByName1(){
         $name = $this->input->post('search');
         if ($name) {
-            $data['marker'] = $this->Marker->getMarkerByName1($name)->result();
+            $data['marker'] = $this->Marker->getMarkersByName1($name)->result();
             $data['colors'] = $this->Marker->getmarkersByColorsFiltered1($name)->result();
+            $data['pictures'] = $this->Marker->getImage();
+            $this->load->view('denah2',$data);
         } else {
             redirect('ViewController/terminalL1');
         }
@@ -37,6 +42,22 @@ class ViewController extends CI_Controller {
 
     public function terminalL2() {
         $this->load->view('denah3');
+        $data['marker'] = $this->Marker->getMarkers()->result();
+        $data['colors'] = $this->Marker->getMarkersByColors()->result();
+        $data['pictures'] = $this->Marker->getImage();
+        $this->load->view('denah3',$data);
+    }
+
+    public function MarkersByName2(){
+        $name = $this->input->post('search');
+        if ($name) {
+            $data['marker'] = $this->Marker->getMarkerByName($name)->result();
+            $data['colors'] = $this->Marker->getmarkersByColorsFiltered($name)->result();
+            $data['pictures'] = $this->Marker->getImage();
+            $this->load->view('denah3',$data);
+        } else {
+            redirect('ViewController/terminalL2');
+        }
     }
     
     public function terminalL3() {

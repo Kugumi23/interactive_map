@@ -147,6 +147,8 @@
 
             map.fitBounds(bounds);
 
+            let pics = <?php echo json_encode($pictures) ?>
+
             <?php foreach($marker as $m): ?>
                 var icons = L.divIcon({
                     className: '',
@@ -159,12 +161,60 @@
 
                 marker.on('click', function () {
                     var collapse = document.getElementById('ruteTo');
-                    collapse.innerHTML = '<h4 class="p-2 text-center">Informasi Lokasi</h4><hr><p class="mt-4"><b><i class="bi bi-geo-alt-fill me-2 ms-2"></i></b><?php echo $m->nama_bangunan ?></p>';
-                    if (collapse.classList.contains('show')) {
-                        collapse.classList.remove('show');
+
+                    let match = pics.filter(p=>p.id_bangunan == <?php echo $m->id ?>);
+
+                    if (match.length > 0) {
+                        let cItem = '';
+                        let activated = true;
+
+                        match.forEach((item, index)=> {
+                            let activeImg = activated ? 'active' : '' ;
+                            activated = false;
+                            
+                            let imgSrc = 'data:image/jpeg;base64,'+item.gambar;
+                        
+                            cItem += `<div class="carousel-item ${activeImg}">
+                                <img class="img-thumbnail mx-auto d-block" style="width:80%; height:80%" src="${imgSrc}">
+                            </div>`;
+                        });
+                        
+                        collapse.innerHTML = `
+                            <div class="container d-flex">
+                                <h4 class="pt-2 text-center">Informasi Lokasi</h4>
+                                <button class="btn btn-sm ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#ruteTo" aria-expanded="true" aria-controls="ruteTo">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </div>
+                            <hr>
+                            <div class="carousel slide" id="image" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    ${cItem}
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#image" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#image" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <p class="mt-3"><i class="bi bi-geo-alt-fill me-2 ms-2"></i><?php echo $m->nama_bangunan ?></p>`;
                     } else {
-                        collapse.classList.add('show');
+                        collapse.innerHTML = `
+                            <div class="container d-flex ">
+                                <h4 class="pt-2">Informasi Lokasi</h4>
+                                <button class="btn btn-sm ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#ruteTo" aria-expanded="true" aria-controls="ruteTo">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </div>
+                            <hr>
+                            <p class="mt-4"><b><i class="bi bi-geo-alt-fill me-2 ms-2"></i></b><?php echo $m->nama_bangunan ?></p>`;
                     }
+
+                    // Kondisi untuk menampilkan gambar
+                    let bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapse);
+                    bsCollapse.show();
+                    
                 });
             <?php endforeach; ?>
 
